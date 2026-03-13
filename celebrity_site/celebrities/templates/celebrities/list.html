@@ -1,0 +1,6 @@
+<h1>Список знаменитостей</h1>
+<ul>
+    {% for celeb in celebs %}
+        <li>{{ celeb.name }} - {{ celeb.birth_date }}</li>
+    {% endfor %}
+</ul>
