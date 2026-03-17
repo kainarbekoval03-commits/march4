@@ -1,0 +1,22 @@
+{% extends 'home.html' %}
+
+{% block content %}
+
+<div style="width: 100%; border: 1px solid; border-color: black; margin: 10px">
+    <form  method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="text" name="name" placeholder="name">
+        <p></p> 
+        <input type="text" name="bio" placeholder="bio">
+        <p></p> 
+        <input type="text" name="birth_date" placeholder="birth_date">
+        <p></p> 
+        <input type="file" name="image">
+        <p></p> 
+        <input type="text" name="content" placeholder="content">
+        <p></p> 
+        <button class="btn btn-primary" type="submit" style="margin: 10px"> <i class="bi bi-plus">Create</i></button>
+    </form>
+</div>
+
+{% endblock content %}

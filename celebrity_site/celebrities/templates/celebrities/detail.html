@@ -1,0 +1,17 @@
+
+{% extends "home.html" %}
+
+{% block content %}
+
+<h1>{{ celeb.name }}</h1>
+
+<p>{{ celeb.bio }}</p>
+<img src="{{celeb.image.url}}" width="18%">
+<p>{{ celeb.birth_date }}</p>
+<p>{{ celeb.content }}</p>
+<p>created_at: {{ celeb.created_at }}</p>
+<p>updated_at: {{ celeb.updated_at }}</p>
+
+<a href="/">Назад</a>
+
+{% endblock %}

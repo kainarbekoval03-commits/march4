@@ -1,6 +1,30 @@
-<h1>Список знаменитостей</h1>
-<ul>
-    {% for celeb in celebs %}
-        <li>{{ celeb.name }} - {{ celeb.birth_date }}</li>
-    {% endfor %}
-</ul>
+{% extends "home.html" %}
+
+{% block content %}
+
+<h1>Celebrity List</h1>
+
+{% for celeb in celebs %}
+<div style="border:1px solid black; margin:10px; padding:10px;">
+    <h2>{{ celeb.name }}</h2>
+{% if celebs %}
+        <img src="{{celeb.image.url}}" width="18%">
+{% else %}
+    <p>Знаменитостей пока нет.</p>
+{% endif %}
+    <p>{{ celeb.bio }}</p>
+    <p>Дата рождения: {{ celeb.birth_date }}</p>
+    <p>Создано: {{ celeb.created_at }}</p>
+    <p>Обновлено: {{ celeb.updated_at }}</p>
+    <a href="/celebrity/{{ celeb.id }}/">
+        <button>Подробнее</button>
+    </a>
+</div>
+{% endfor %}
+
+
+
+{% endblock %}
+
+
+
