@@ -17,18 +17,32 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls import static
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from celebrities.views import celebrity_list, detayl_celeb, create_celeb
 from celebrities import views
-from users.views import register
+from users.views import sign_up, sign_in, sign_out
 
+
+
+users = [
+
+    path("users/sign-up/", sign_up),
+    path("users/sign-in/", sign_in),
+    path("users/sign-out/", sign_out)
+]
+
+celebrity = [
+    path('celebrity/', views.celebrity_list),
+    path('celebrity/<int:id>/', detayl_celeb, name='detail_celeb'),
+    path('celebrity/create/', views.create_celeb),
+
+]
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', celebrity_list),
-    path('celebrity/', views.celebrity_list),
-    path('celebrity/<int:id>/', detayl_celeb, name='detail_celeb'),
-    path('celebrity/create/', views.create_celeb),
+    *celebrity,
+    *users
 ] + static.static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

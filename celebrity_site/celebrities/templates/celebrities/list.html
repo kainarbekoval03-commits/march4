@@ -1,11 +1,16 @@
 {% extends "home.html" %}
 
 {% block content %}
+<div style="width: 100%; border: 1px solid; border-color: black; margin: 10px">
+    <form method="get">
+        {{ form.as_p }}
+        <button class="btn btn-primary" type="submit" style="margin: 10px">Search</button>
+    </form>
+</div>
 
-<h1>Celebrity List</h1>
 
 {% for celeb in celebs %}
-<div style="border:1px solid black; margin:10px; padding:10px;">
+<div class="celeb" border:1px solid black; margin:10px; padding:10px;>
     <h2>{{ celeb.name }}</h2>
 {% if celebs %}
         <img src="{{celeb.image.url}}" width="18%">

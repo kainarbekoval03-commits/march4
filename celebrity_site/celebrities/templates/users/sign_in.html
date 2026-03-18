@@ -2,12 +2,10 @@
 
 {% block content %}
 <div style="width: 100%; border: 1px solid; border-color: black; margin: 10px">
-    <form action="" method="POST" enctype="multipart/form-data">
+    <form action="" method="POST">
         {% csrf_token %}
         {{ form.as_p }}
-        <button class="btn btn-primary" type="submit" style="margin: 10px">Create <i class="bi bi-plus"></i>
-        </button>
+        <button class="btn btn-primary" type="submit" style="margin: 10px">Sign in</button>
     </form>
 </div>
-
 {% endblock content %}
