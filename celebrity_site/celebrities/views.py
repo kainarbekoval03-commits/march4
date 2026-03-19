@@ -12,6 +12,19 @@ def home_celeb(request):
 def celebrity_list(request):
     if request.method == "GET":
         all_celebs = Celebrity.objects.all()
+        form = SearchForm(request.GET)
+        
+        if not form.is_valid():
+            return HttpResponse("Error")
+        search = form.cleaned_data.get("search", None)
+        category = form.cleaned_data.get("category" ,None)
+        tags = form.cleaned_data.get("tags" ,None)
+        if search:
+            all_celebs = all_celebs.filter(Q(name__icontains=search))
+        if category:
+            all_celebs = all_celebs.filter(cetegory=category)
+        if tags:
+            all_celebs = all_celebs.filter(tegs__in=tags)
         limit = 3
         page = int(request.GET.get("page", 1)) 
         max_page = all_celebs.count() // limit + 1
@@ -19,24 +32,7 @@ def celebrity_list(request):
         start = (page - 1) * limit
         end = page * limit
         all_celebs = all_celebs[start:end]
-        form = SearchForm(request.GET)
-        
-        if form.is_valid():
-            search = form.cleaned_data.get("search")
-            category = form.cleaned_data.get("category")
-            author = form.cleaned_data.get("author")
-            tags = form.cleaned_data.get("tags")
-        else:
-            search = category = author = tags = None
-        if search:
-            all_celebs = all_celebs.filter(Q(title__icontains=search) | Q(description__icontains=search))
-        if category:
-            all_celebs = all_celebs.filter(category=category)
-        if author:
-            print(author)
-        if tags:
-            all_celebs = all_celebs.filter(tags__in=tags)
-        return render(request, template_name="celebrities/list.html", context={"celebs": all_celebs, "form": form, "list": list})
+        return render(request, template_name="celebrities/list.html", context={"celebs": all_celebs, "form": form, "list_pages": list_pages})
 def detayl_celeb(request, id ):
     if request.method == "GET":
         celeb = Celebrity.objects.get(id=id)
@@ -49,9 +45,9 @@ def create_celeb(request):
         form = CreateCelebForm(request.POST, request.FILES)
         if not form.is_valid():
             return HttpResponse("Error data")
-        name = form.cleaned_data.get("title")
-        bio = form.cleaned_data.get("author")
-        birth_date  = form.cleaned_data.get("description")
+        name = form.cleaned_data.get("name")
+        bio = form.cleaned_data.get("bio")
+        birth_date  = form.cleaned_data.get("birth_date")
         image = form.cleaned_data.get("image")
         content = form.cleaned_data.get("content")
         Celebrity.objects.create(name=name, bio=bio, image=image, content=content, birth_date=birth_date)

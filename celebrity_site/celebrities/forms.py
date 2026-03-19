@@ -28,10 +28,9 @@ class CreateCelebForm(forms.Form):
     
 
 class SearchForm(forms.Form):
-    author_choice = [("author1", "kans"), ("author2", "cans")]
-    example_choice = [("example1", "kans"), ("example2", "cans")]
+  
     search = forms.CharField(required=False)
     category = forms.ModelChoiceField(queryset=Category.objects.all(), required=False) # динамичный одиночные выбор
-    author = forms.ChoiceField(choices=author_choice, required=False) # статичный одиночные выбор
+    # author = forms.ChoiceField(choices=author_choice, required=False) # статичный одиночные выбор
     tags = forms.ModelMultipleChoiceField(queryset=Tag.objects.all(), required=False) # динамичный множественный выбор
-    example = forms.MultipleChoiceField(choices=author_choice, required=False)
+    # example = forms.MultipleChoiceField(choices=author_choice, required=False)
